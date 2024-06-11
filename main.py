@@ -23,7 +23,8 @@ if user_login_info:
     if isinstance(user_login_info, Admin):
         my_server = 'OLGA\\MSSQLSERVER01'
         my_base = 'yumm'
-        print("co chceszz zrobić? \n 1 - dodaj przepis \n 2 - usuń użytkownika \n 3 - dodaj użytkownika \n 4 - przeglądaj użytkowników")
+        print("co chceszz zrobić? \n 1 - dodaj przepis \n 2 - usuń użytkownika \n 3 - dodaj użytkownika \n 4 - przeglądaj użytkowników"
+              "\n 5 - wyszukaj przepis po tytule \n 6 - wyszukaj przepis po autorze \n 7 - wyszukaj po kategorii ")
         answer = int(input("Podaj liczbę: "))
         if answer == 1:
 
@@ -49,5 +50,15 @@ if user_login_info:
             admin.dodaj_uzytkownika(my_server, my_base, user_email, password, user_name, user_surname, premium)
         elif answer == 4:
             admin.przegladaj_uzytkowników(my_server, my_base)
+
+        elif answer == 5:
+            title = input('Podaj tytuł: ')
+            admin.wyszukaj_przepis(my_server, my_base, title)
+        elif answer == 6:
+            author = input('Podaj autora: ')
+            admin.wyszukaj_autora(my_server, my_base, author)
+        elif answer == 7:
+            category = input('Podaj kategorię: ')
+            admin.wyszukaj_kategorie(my_server, my_base, category)
 else:
     print("Nie utworzono instancji użytkownika - logowanie nieudane")

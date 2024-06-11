@@ -1,6 +1,8 @@
 import pyodbc
 
-
+server = 'OLGA\\MSSQLSERVER01'
+database = 'yumm'
+conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={server}; DATABASE={database}; Trusted_Connection=yes;'
 class User:
 
     def __init__(self, email, name, surname):
@@ -12,14 +14,53 @@ class User:
     def __str__(self):
         return f"User(ID={self.id}, Name={self.name}, Surname={self.surname}, Category={self.category})"
 
-    def wyszukaj_przepis(self, title):
-        pass
+    def wyszukaj_przepis(self, sever, database, title):
+        try:
+            conn = pyodbc.connect(conn_str)
+            cursor = conn.cursor()
+            srch_qry = "SELECT * FROM Recipes WHERE TITLE LIKE ?"
+            cursor.execute(srch_qry, '%' + title + '%')
+            rows = cursor.fetchall()
+            cursor.close()
 
-    def wyszukaj_autora(self, author):
-        pass
+            for row in rows:
+                print(row)
+        except pyodbc.Error as e:
+            print("Błąd wykonania zapytania: ", e)
+        finally:
+            conn.close()
 
-    def wyszukaj_kategorie(self, category):
-        pass
+    def wyszukaj_autora(self, sever, database, author):
+        try:
+            conn = pyodbc.connect(conn_str)
+            cursor = conn.cursor()
+            srch_qry = "SELECT * FROM Recipes WHERE AUTHOR LIKE ?"
+            cursor.execute(srch_qry, '%' + author + '%')
+            rows = cursor.fetchall()
+            cursor.close()
+
+            for row in rows:
+                print(row)
+        except pyodbc.Error as e:
+            print("Błąd wykonania zapytania: ", e)
+        finally:
+            conn.close()
+
+    def wyszukaj_kategorie(self, sever, database, category):
+        try:
+            conn = pyodbc.connect(conn_str)
+            cursor = conn.cursor()
+            srch_qry = "SELECT * FROM Recipes WHERE CATEGORY LIKE ?"
+            cursor.execute(srch_qry, '%' + category + '%')
+            rows = cursor.fetchall()
+            cursor.close()
+
+            for row in rows:
+                print(row)
+        except pyodbc.Error as e:
+            print("Błąd wykonania zapytania: ", e)
+        finally:
+            conn.close()
 
 class PremiumUser(User):
     def __init__(self, email, name, surname, favourites):
