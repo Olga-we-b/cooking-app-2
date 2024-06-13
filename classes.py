@@ -69,7 +69,7 @@ class PremiumUser(User):
         self.favourites = favourites if favourites else []
 
     def add_favourite(self, recipe_id):
-        pass
+        self.favourites.append(recipe_id)
     def __str__(self):
         return f"PremiumUser(ID={self.id}, Name={self.name}, Surname={self.surname}, Category={self.category}, Favourites={self.favourites})"
 
