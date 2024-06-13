@@ -1,5 +1,7 @@
 import pyodbc
+def execute_query(query):
 
+    pass
 server = 'OLGA\\MSSQLSERVER01'
 database = 'yumm'
 conn_str = f'DRIVER={{ODBC Driver 17 for SQL Server}}; SERVER={server}; DATABASE={database}; Trusted_Connection=yes;'

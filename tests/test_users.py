@@ -43,9 +43,9 @@ def test_premium_user_creation(premium_user):
 def test_super_admin_creation(super_admin):
     assert super_admin.id == 'superadmin@example.com'
     assert super_admin.name == 'Bob'
-    assert super_admin.surname == 'Jonson'
+    assert super_admin.surname == 'Johnson'
     assert super_admin.category == 'SuperAdmin'
-    assert super_admin.sumerAdmin
+    assert super_admin.superAdmin
 
 def test_add_favourite(premium_user):
     premium_user.add_favourite(1)
@@ -57,14 +57,14 @@ def test_admin_add_recipe(admin, recipie):
     assert len(rows) > 0
     assert rows[0].TITLE == recipie.title
 
-def test_admin_removeyser(admin):
+def test_admin_removeuser(admin):
     test_email = 'remove@example.com'
-    admin.dodaj_uzytkownika(test_email, 'password', 'Remove', 'User', False)
-    admin.usun_uzytkownika(test_email)
+    admin.dodaj_uzytkownika('OLGA\\MSSQLSERVER01', 'yumm', test_email, 'password', 'Remove', 'User', False)
+    admin.usun_uzytkownika('OLGA\\MSSQLSERVER01', 'yumm', test_email)
     rows = execute_query("SELECT * FROM Users WHERE email = ?", [test_email])
     assert len(rows) == 0
 
 
 def test_admin_view_users(admin):
-    rows = admin.przegladaj_uzytkowników()
+    rows = admin.przegladaj_uzytkowników('OLGA\\MSSQLSERVER01', 'yumm')
     assert len(rows) > 0
